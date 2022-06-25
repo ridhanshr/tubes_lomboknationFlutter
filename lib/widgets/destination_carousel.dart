@@ -1,9 +1,54 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:tubes_lomboknation/models/destination_model.dart';
 import 'package:tubes_lomboknation/screens/destination_screens.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:tubes_lomboknation/models/hotels_json_model.dart';
+
+Future<List<HotelJsonModel>> fetchHotelAPI(http.Client client) async {
+  final response =
+      await client.get(Uri.parse('https://api.npoint.io/8a11564f0e986c7a75c4'));
+  return compute(parseHotelJson, response.body);
+}
+
+List<HotelJsonModel> parseHotelJson(String responseBody) {
+  // parse json into a list of hotel json model objects
+  final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
+  return parsed
+      .map<HotelJsonModel>((json) => HotelJsonModel.fromJson(json))
+      .toList();
+}
 
 class DestinationCarousel extends StatelessWidget {
+  DestinationCarousel({Key? key}) : super(key: key);
+
+  var _jsonItems = fetchHotelAPI(http.Client());
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<List<HotelJsonModel>>(
+        future: fetchHotelAPI(http.Client()),
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return const Center(child: Text('An error has occured!'));
+          } else if (snapshot.hasData) {
+            return hotelItems(hotels: snapshot.data!);
+          } else {
+            return const Center(
+              child: Text('Data not loaded!'),
+            );
+          }
+        });
+  }
+}
+
+class hotelItems extends StatelessWidget {
+  const hotelItems({Key? key, required this.hotels}) : super(key: key);
+
+  final List<HotelJsonModel> hotels;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -40,7 +85,7 @@ class DestinationCarousel extends StatelessWidget {
           height: 300.0,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: destinations.length,
+            itemCount: hotels.length,
             itemBuilder: (BuildContext context, int index) {
               Destination destination = destinations[index];
               return GestureDetector(
@@ -125,7 +170,7 @@ class DestinationCarousel extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
                                   Text(
-                                    destination.city,
+                                    hotels[index].judul,
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 24.0,

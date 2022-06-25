@@ -1,25 +1,44 @@
+import 'dart:convert';
+import 'package:http/http.dart';
 import 'package:flutter/material.dart';
 import 'package:tubes_lomboknation/models/activity_model.dart';
 import 'package:tubes_lomboknation/models/destination_model.dart';
+import 'package:tubes_lomboknation/models/hotels_json_model.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class DestinationScreen extends StatefulWidget {
   final Destination destination;
 
-  DestinationScreen({required this.destination});
+  DestinationScreen({required this.destination, hotel});
 
   @override
   _DestinationScreenState createState() => _DestinationScreenState();
 }
 
 class _DestinationScreenState extends State<DestinationScreen> {
-  Text _buildRatingStars(int rating) {
-    String stars = '';
-    for (int i = 0; i < rating; i++) {
-      stars += '⭐ ';
+  final url = "https://api.npoint.io/8a11564f0e986c7a75c4";
+
+  var _itemsJson = [];
+
+  void fetchPosts() async {
+    try {
+      final response = await get(Uri.parse(url));
+      if (response.statusCode == 200) {
+        final jsonData = json.decode(response.body);
+        setState(() {
+          _itemsJson = jsonData;
+        });
+      }
+    } catch (err) {
+      print(err);
     }
-    stars.trim();
-    return Text(stars);
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    fetchPosts();
   }
 
   @override
@@ -157,7 +176,7 @@ class _DestinationScreenState extends State<DestinationScreen> {
                                 Container(
                                   width: 120.0,
                                   child: Text(
-                                    activity.name,
+                                    '\$$activity.name',
                                     style: TextStyle(
                                       fontSize: 18.0,
                                       fontWeight: FontWeight.w600,
@@ -169,7 +188,7 @@ class _DestinationScreenState extends State<DestinationScreen> {
                                 Column(
                                   children: <Widget>[
                                     Text(
-                                      '\$${activity.price}',
+                                      '\$$activity.price',
                                       style: TextStyle(
                                         fontSize: 22.0,
                                         fontWeight: FontWeight.w600,
@@ -186,12 +205,12 @@ class _DestinationScreenState extends State<DestinationScreen> {
                               ],
                             ),
                             Text(
-                              activity.type,
+                              '\$$activity.type',
                               style: TextStyle(
                                 color: Colors.grey,
                               ),
                             ),
-                            _buildRatingStars(activity.rating),
+                            // _buildRatingStars(activity.rating),
                             SizedBox(height: 10.0),
                             Row(
                               children: <Widget>[
@@ -204,7 +223,7 @@ class _DestinationScreenState extends State<DestinationScreen> {
                                   ),
                                   alignment: Alignment.center,
                                   child: Text(
-                                    activity.startTimes[0],
+                                    '\$$activity.startTimes[0]',
                                   ),
                                 ),
                                 SizedBox(width: 10.0),
@@ -217,7 +236,7 @@ class _DestinationScreenState extends State<DestinationScreen> {
                                   ),
                                   alignment: Alignment.center,
                                   child: Text(
-                                    activity.startTimes[1],
+                                    '\$$activity.startTimes[1]',
                                   ),
                                 ),
                               ],

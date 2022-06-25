@@ -14,8 +14,6 @@ class _HomeScreenState extends State<HomeScreen> {
   List<IconData> _icons = [
     FontAwesomeIcons.plane,
     FontAwesomeIcons.bed,
-    FontAwesomeIcons.walking,
-    FontAwesomeIcons.biking,
   ];
 
   Widget _buildIcon(int index) {
@@ -75,7 +73,17 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             SizedBox(height: 20.0),
             DestinationCarousel(),
-            SizedBox(height: 20.0),
+            Padding(
+              padding: EdgeInsets.only(left: 20.0),
+              child: Text(
+                'Top Hotels',
+                style: TextStyle(
+                  fontSize: 22.0,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 1.5,
+                ),
+              ),
+            ),
             HotelCarousel(),
           ],
         ),
@@ -94,13 +102,6 @@ class _HomeScreenState extends State<HomeScreen> {
               size: 30.0,
             ),
             label: "Search",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.local_pizza,
-              size: 30.0,
-            ),
-            label: "Pizza",
           ),
           BottomNavigationBarItem(
             icon: CircleAvatar(

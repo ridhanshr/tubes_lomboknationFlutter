@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:tubes_lomboknation/login.dart';
+import 'package:tubes_lomboknation/register.dart';
 import 'package:tubes_lomboknation/screens/homescreen_screens.dart';
 
 void main() => runApp(MyApp());
@@ -15,7 +17,7 @@ class MyApp extends StatelessWidget {
         accentColor: Color(0xFFD8ECF1),
         scaffoldBackgroundColor: Color(0xFFF3F5F7),
       ),
-      home: HomeScreen(),
+      home: LoginPage(),
     );
   }
 }

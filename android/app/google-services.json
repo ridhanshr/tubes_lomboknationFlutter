@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "699313497590",
+    "project_id": "lomboknation-6ce64",
+    "storage_bucket": "lomboknation-6ce64.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:699313497590:android:1b7949501ec104a3c9d3d7",
+        "android_client_info": {
+          "package_name": "com.example.tubes_lomboknation"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "699313497590-m6emodk5tmm9kh18its8shr6stsh3abi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCz68YRG0xrBRRyB3BGZ7WM43Qtjnnv54A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "699313497590-m6emodk5tmm9kh18its8shr6stsh3abi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
