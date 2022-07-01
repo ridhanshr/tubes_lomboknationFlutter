@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:tubes_lomboknation/auth_services.dart';
 import 'package:tubes_lomboknation/login.dart';
 import 'package:tubes_lomboknation/register.dart';
 import 'package:tubes_lomboknation/screens/homescreen_screens.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => authServices()),
+      ],
+      child: MyApp(),
+    ));
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.

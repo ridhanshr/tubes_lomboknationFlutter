@@ -6,6 +6,7 @@ import 'package:tubes_lomboknation/models/destination_model.dart';
 import 'package:tubes_lomboknation/screens/destination_screens.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tubes_lomboknation/models/hotels_json_model.dart';
+import 'package:tubes_lomboknation/screens/hotel_screens.dart';
 
 Future<List<HotelJsonModel>> fetchHotelAPI(http.Client client) async {
   final response =
@@ -92,8 +93,8 @@ class hotelItems extends StatelessWidget {
                 onTap: () => Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (_) => DestinationScreen(
-                      destination: destination,
+                    builder: (context) => DestinationScreen(
+                      hotel: hotels[index],
                     ),
                   ),
                 ),

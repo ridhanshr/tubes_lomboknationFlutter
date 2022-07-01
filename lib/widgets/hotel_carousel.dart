@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:tubes_lomboknation/models/hotels_json_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:tubes_lomboknation/screens/hotel_screens.dart';
 
 Future<List<HotelJsonModel>> fetchHotelAPI(http.Client client) async {
   final response =
@@ -100,6 +101,18 @@ class hotelList extends StatelessWidget {
                         ),
                       ],
                     ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => hotelDetailPage(
+                            hotel: hotels[index],
+                          ),
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),

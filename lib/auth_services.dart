@@ -3,8 +3,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tubes_lomboknation/screens/homescreen_screens.dart';
 
-class authServices {
+class authServices with ChangeNotifier {
   static FirebaseAuth _auth = FirebaseAuth.instance;
+
+  Future<String> getCurrentUID() async {
+    return (await _auth.currentUser()).uid;
+  }
+
+  Future getCurrentUser() async {
+    await _auth.currentUser();
+    notifyListeners();
+  }
 
   static Future<FirebaseUser?> createUserWithEmailAndPassword(
       String email, String password) async {
@@ -37,7 +46,7 @@ class authServices {
     }
   }
 
-  static Future<void> signOut() async {
+  Future<void> signOut() async {
     try {
       return await _auth.signOut();
     } catch (e) {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tubes_lomboknation/login.dart';
 
 import 'auth_services.dart';
 
@@ -41,6 +42,15 @@ class registerPage extends StatelessWidget {
                 authServices.createUserWithEmailAndPassword(
                   _emailController.text,
                   _passwordController.text,
+                );
+              },
+            ),
+            RaisedButton(
+              child: Text('Login'),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoginPage()),
                 );
               },
             ),
